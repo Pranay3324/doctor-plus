@@ -1,0 +1,17 @@
+# Dependencies
+node_modules/
+
+# Environment Variables
+.env
+
+# Firebase Config Keys
+server/config/*.json
+
+# Build Output
+dist/
+build/
+
+# IDE Files
+.vscode/
+.idea/
+.DS_Store
