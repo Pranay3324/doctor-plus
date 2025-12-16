@@ -76,7 +76,7 @@ A Google Cloud Project with Gemini API enabled
 
 2. Clone the Repository
 
-git clone [https://github.com/your-username/doctor-plus.git](https://github.com/your-username/doctor-plus.git)
+git clone [https://github.com/Pranay3324/doctor-plus.git](https://github.com/Pranay3324/doctor-plus.git)
 cd doctor-plus
 
 
