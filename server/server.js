@@ -12,7 +12,12 @@ const PORT = process.env.PORT || 5000;
 
 // --- Express App Setup ---
 const app = express();
-app.use(cors());
+// server/server.js
+app.use(
+  cors({
+    origin: ["https://doctor-plus-two.vercel.app/", "http://localhost:5173"], // Allow both live and local
+  })
+);
 app.use(express.json({ limit: "10mb" })); // Limit for image uploads
 
 // --- Mount Routes ---
