@@ -15,7 +15,11 @@ const app = express();
 // server/server.js
 app.use(
   cors({
-    origin: ["https://doctor-plus-two.vercel.app/", "http://localhost:5173"], // Allow both live and local
+    origin: [
+      "https://doctor-plus-two.vercel.app", // Your deployed frontend
+      "http://localhost:5173", // Your local frontend (for testing)
+    ],
+    credentials: true,
   })
 );
 app.use(express.json({ limit: "10mb" })); // Limit for image uploads
