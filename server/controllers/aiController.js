@@ -8,7 +8,8 @@ const { db } = require("../config/firebase");
 
 // --- Chatbot & Wellness Tools ---
 const chat = async (req, res) => {
-  const { message, userId } = req.body;
+  const { message } = req.body;
+  const userId = req.user.uid;
 
   if (!message) {
     return res.status(400).json({ error: "Message is required" });
@@ -76,11 +77,7 @@ const analyzeImage = async (req, res) => {
 
 // --- Health Insights (From Logs) ---
 const getHealthInsights = async (req, res) => {
-  const { userId } = req.body;
-
-  if (!userId) {
-    return res.status(400).json({ error: "userId is required" });
-  }
+  const userId = req.user.uid;
 
   try {
     console.log(`[AI] Generating insights for user: ${userId}`);

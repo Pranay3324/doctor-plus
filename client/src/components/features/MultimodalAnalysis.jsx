@@ -46,9 +46,12 @@ export default function MultimodalAnalysis() {
           analysisType === "food"
             ? "Analyze food image..."
             : "Analyze skin condition...";
-        const response = await fetch(`${API_BASE_URL}/api/analyze-image`, {
+        const response = await fetch(`${API_BASE_URL}/api/ai/analyze-image`, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${await user.getIdToken()}`,
+          },
           body: JSON.stringify({
             prompt,
             imageData: base64Image,

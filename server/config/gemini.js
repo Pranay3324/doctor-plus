@@ -17,10 +17,10 @@ const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
 // Initialize Models
 // We use the same model for both text and multimodal tasks
 const textModel = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash-preview-09-2025",
+  model: "gemini-3-flash-preview",
 });
 const multimodalModel = genAI.getGenerativeModel({
-  model: "gemini-2.5-flash-preview-09-2025",
+  model: "gemini-3-flash-preview",
 });
 
 const safetySettings = [

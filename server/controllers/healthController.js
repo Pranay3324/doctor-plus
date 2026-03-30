@@ -3,12 +3,11 @@ const { Timestamp } = require("firebase-admin/firestore");
 
 // Add a log
 const addLog = async (req, res) => {
-  const { userId, type, value } = req.body;
+  const { type, value } = req.body;
+  const userId = req.user.uid;
 
-  if (!userId || !type || !value) {
-    return res
-      .status(400)
-      .json({ error: "userId, type, and value are required" });
+  if (!type || !value) {
+    return res.status(400).json({ error: "type and value are required" });
   }
 
   try {
@@ -31,12 +30,8 @@ const addLog = async (req, res) => {
 
 // Get logs
 const getLogs = async (req, res) => {
-  const userId = req.params.userId;
+  const userId = req.user.uid;
   const limitParam = req.query.limit ? parseInt(req.query.limit, 10) : 20;
-
-  if (!userId) {
-    return res.status(400).json({ error: "userId is required" });
-  }
 
   try {
     const logsRef = db.collection("users").doc(userId).collection("healthLogs");

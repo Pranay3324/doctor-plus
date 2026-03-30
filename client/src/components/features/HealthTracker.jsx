@@ -34,13 +34,10 @@ export default function HealthTracker({ user }) {
         const fetchedLogs = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
-          timestamp: doc
-            .data()
-            .timestamp.toDate()
-            .toLocaleString("en-US", {
-              dateStyle: "short",
-              timeStyle: "short",
-            }),
+          timestamp: doc.data().timestamp.toDate().toLocaleString("en-US", {
+            dateStyle: "short",
+            timeStyle: "short",
+          }),
         }));
         setLogs(fetchedLogs);
       } catch (err) {
@@ -60,10 +57,14 @@ export default function HealthTracker({ user }) {
     setIsAddingLog(true);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/health-log`, {
+      const idToken = await user.getIdToken();
+      const response = await fetch(`${API_BASE_URL}/api/health/health-log`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user.uid, type: type, value: value }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ type: type, value: value }),
       });
 
       if (!response.ok) throw new Error(await response.text());
@@ -97,10 +98,14 @@ export default function HealthTracker({ user }) {
     setError(null);
     setInsights("");
     try {
-      const response = await fetch(`${API_BASE_URL}/api/health-insights`, {
+      const idToken = await user.getIdToken();
+      const response = await fetch(`${API_BASE_URL}/api/ai/health-insights`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId: user.uid }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({}),
       });
       if (!response.ok) throw new Error(await response.text());
       const data = await response.json();

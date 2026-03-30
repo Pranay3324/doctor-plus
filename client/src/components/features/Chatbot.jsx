@@ -87,10 +87,15 @@ export default function Chatbot({ user }) {
     setMessages((prev) => [...prev, typingIndicator]);
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/chat`, {
+      const idToken = await user.getIdToken();
+      console.log("token=", idToken);
+      const response = await fetch(`${API_BASE_URL}/api/ai/chat`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: currentInput, userId: user.uid }),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${idToken}`,
+        },
+        body: JSON.stringify({ message: currentInput }),
       });
 
       setMessages((prev) => prev.filter((msg) => !msg.isTyping));
